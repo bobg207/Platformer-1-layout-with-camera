@@ -42,8 +42,10 @@ class Layout():
         """
         self.blocks = pygame.sprite.Group()
         self.players = pygame.sprite.GroupSingle()
-        bg = pygame.image.load('bg_img.jpeg')
-        self.bg_img = pygame.transform.scale(bg, (LAYOUT_WIDTH, DISPLAY_HEIGHT))
+        self.bg_img = pygame.Surface((LAYOUT_WIDTH, DISPLAY_HEIGHT))
+        self.bg_img.fill(WHITE)
+        # bg = pygame.image.load('bg_img.jpeg')
+        # self.bg_img = pygame.transform.scale(bg, (LAYOUT_WIDTH, DISPLAY_HEIGHT))
         self.bg_rect = self.bg_img.get_rect()
         self.bg_rect.x = 0
         self.bg_rect.y = 0
@@ -67,23 +69,24 @@ class Layout():
 
         # get the sprite that is in the Group, only needed to shorten amount of typing throughout this method
         player = self.players.sprite
-        player_x = player.rect.centerx
         dir_x = player.dir_x
 
-        if player_x < left_edge and dir_x == -1:  # close to left and moving left
+        if player.rect.left <= left_edge and dir_x == -1:  # close to left and moving left
             self.camera_shift = 5
+            player.rect.left = left_edge
             player.speed = 0
-        elif player_x > right_edge and dir_x == 1:  # close to right and moving right
+        elif player.rect.right >= right_edge and dir_x == 1:  # close to right and moving right
             self.camera_shift = -5
+            player.rect.right = right_edge
             player.speed = 0
         else:
             self.camera_shift = 0
             player.speed = 5
 
-        if self.bg_rect.right <= DISPLAY_WIDTH - 2 * TILE_SIZE and dir_x == 1:
-            self.camera_shift = 0
-        elif self.bg_rect.left >= 0 and dir_x == -1:
-            self.camera_shift = 0
+        # if self.bg_rect.right <= DISPLAY_WIDTH - 2 * TILE_SIZE and dir_x == 1:
+        #     self.camera_shift = 0
+        # elif self.bg_rect.left >= 0 and dir_x == -1:
+        #     self.camera_shift = 0
 
     def update(self):
         """method to update all objects on the map

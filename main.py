@@ -7,7 +7,7 @@ pygame.init()
 
 screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 pygame.display.set_caption("Jumper")
-clock = pygame.time.Clock()\
+clock = pygame.time.Clock()
 
 layout = sprites.Layout(LAYOUT, screen)
 
