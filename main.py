@@ -16,7 +16,7 @@ playing = True
 while playing:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            quit()
 
     screen.fill(SKY_BLUE)
     layout.update()
